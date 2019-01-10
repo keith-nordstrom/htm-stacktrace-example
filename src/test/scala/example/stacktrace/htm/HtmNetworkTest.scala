@@ -30,10 +30,7 @@ class HtmNetworkTest extends FunSuite {
 
   }
 
-  def values(dimensionality: Int): util.List[Integer] = {
-
-    (1 to dimensionality).map(_ => math.random() * 100).map(_.toInt).map(Integer.valueOf).asJava
-  }
+  def values(dimensionality: Int): util.List[Integer] = (1 to dimensionality).map(_ => math.random() * 100).map(_.toInt).map(Integer.valueOf).asJava
 
 }
 

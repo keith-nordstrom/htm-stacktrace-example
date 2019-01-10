@@ -25,7 +25,7 @@ case class HtmNetwork(p: Parameters) {
 
   private lazy val layer23: Layer[_] = {
     val l = Network.createLayer("Layer 2/3", p)
-      //   .alterParameter(KEY.AUTO_CLASSIFY, true)    
+      //   .alterParameter(KEY.AUTO_CLASSIFY, true)
       .add(Anomaly.create())
       .add(new TemporalMemory())
       .add(new SpatialPooler())
