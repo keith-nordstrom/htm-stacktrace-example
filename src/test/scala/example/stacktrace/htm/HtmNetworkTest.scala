@@ -12,7 +12,6 @@ import org.scalatest.{FunSuite, Matchers}
 import utils.TupleConstructor
 
 import scala.collection.JavaConverters._
-import scala.util.Try
 
 class HtmNetworkTest extends FunSuite with Matchers {
 
