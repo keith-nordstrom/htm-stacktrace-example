@@ -8,11 +8,13 @@ import io.timeli.application.htm.EncoderMappings.FieldMapping
 import org.joda.time.DateTime
 import org.numenta.nupic.Parameters
 import org.numenta.nupic.Parameters.KEY
-import org.scalatest.FunSuite
+import org.scalatest.{FunSuite, Matchers}
 import utils.TupleConstructor
-import scala.collection.JavaConverters._
 
-class HtmNetworkTest extends FunSuite {
+import scala.collection.JavaConverters._
+import scala.util.Try
+
+class HtmNetworkTest extends FunSuite with Matchers {
 
   test("test network throws a stack trace in the layer when Numenta Tuple data is sent to it") {
 
@@ -22,12 +24,12 @@ class HtmNetworkTest extends FunSuite {
     //create a map - start with one dimension in the coordinates vector, but the error is almost certainly independent of vector size
     val mapToSend = Map(
       "timestamp" -> DateTime.now,
-      "value" -> TupleConstructor.fromSequence(values(1), Double.box(10)),
+      "value" -> TupleConstructor.fromSequence(values(10), Double.box(10)),
       "identity" -> UUID.randomUUID().toString).asJava
 
     //compute immediately with the map
-    nw.computeImmediate(mapToSend)
-
+    val inference = nw.computeImmediate(mapToSend)
+    Option(inference) should not be None            //this test needs to fail, the exception occurs asynchronously
   }
 
   def values(dimensionality: Int): util.List[Integer] = (1 to dimensionality).map(_ => math.random() * 100).map(_.toInt).map(Integer.valueOf).asJava
